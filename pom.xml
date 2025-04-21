@@ -11,8 +11,12 @@
     <groupId>com.example</groupId>
     <artifactId>MicroservicesAndDistributedSystems</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>MicroservicesAndDistributedSystems</name>
     <description>MicroservicesAndDistributedSystems</description>
+    <modules>
+        <module>Customer</module>
+    </modules>
     <properties>
         <java.version>17</java.version>
         <spring.boot.maven.plugin.version>2.5.7</spring.boot.maven.plugin.version>
