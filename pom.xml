@@ -19,8 +19,8 @@
     </modules>
     <properties>
         <java.version>17</java.version>
-        <spring.boot.maven.plugin.version>2.5.7</spring.boot.maven.plugin.version>
-        <spring.boot.dependecies.version>2.5.7</spring.boot.dependecies.version>
+        <spring.boot.maven.plugin.version>3.4.0</spring.boot.maven.plugin.version>
+        <spring.boot.dependecies.version>3.4.0</spring.boot.dependecies.version>
     </properties>
 
     <dependencyManagement>
