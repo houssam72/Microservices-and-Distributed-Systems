@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: notification
+  datasource:
+    username: houssam
+    url: jdbc:postgresql://localhost:1234/notification
+    password: houssam
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+
+server:
+  port: 8086
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+      fetch-registry: false
+      register-with-eureka: true
+
+
