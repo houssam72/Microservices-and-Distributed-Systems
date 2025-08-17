@@ -9,17 +9,17 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.example.rabbitmq</groupId>
-    <artifactId>rabbitmq-config</artifactId>
+    <groupId>com.rabbitmq</groupId>
+    <artifactId>rabbitmq</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <build>
         <plugins>
-            <!-- Désactiver le plugin Spring Boot pour éviter l'erreur de classe main manquante -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.4.3</version>
                 <executions>
                     <execution>
                         <id>repackage</id>
