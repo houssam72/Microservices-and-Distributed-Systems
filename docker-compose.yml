@@ -8,6 +8,8 @@ services:
       POSTGRES_USER: houssam
       POSTGRES_PASSWORD: houssam
       PGDATA: /data/postgres
+    networks:
+      - spring
 
   pgadmin:
     image: dpage/pgadmin4
@@ -17,12 +19,16 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
       PGADMIN_DEFAULT_PASSWORD: strong-password
+    networks:
+      - spring
 
   zipkin:
     image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
     container_name: zipkin
     ports:
       - 9411:9411
+    networks:
+      - spring
 
   rabbitmq:
     image: rabbitmq:3.9.11-management-alpine
@@ -30,3 +36,84 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    networks:
+      - spring
+
+  api-gateway:
+    image: alhoussam/apigateway:0.0.1-SNAPSHOT@sha256:fc04ff2b7b44aa4a0e9a3aa7e13aacffc368441c84d50307b25ddeac2a10fc9f
+    container_name: api-gateway
+    ports:
+      - 8083:8083
+    networks:
+      - spring
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - zipkin
+      - eureka-server
+
+  eureka-server:
+    image: alhoussam/eureka-service-discovery:0.0.1-SNAPSHOT@sha256:e8e1b05fc16d7da504cd06e6420ed1faec3086b721574356edc6816ca8dd8d47
+    container_name: eureka-server
+    ports:
+      - 8761:8761
+    networks:
+      - spring
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - zipkin
+
+  fraud:
+    image: alhoussam/fraud:0.0.1-SNAPSHOT@sha256:be995446f86a422403d75de6c96232181b614c2180e6be29ea377eab99201231
+    container_name: fraud
+    ports:
+      - 8081:8081
+    networks:
+      - spring
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - zipkin
+      - eureka-server
+      - db
+      - pgadmin
+
+  customer:
+    image: alhoussam/customer:0.0.1-SNAPSHOT
+    container_name: customer
+    ports:
+      - 8080:8080
+    networks:
+      - spring
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - zipkin
+      - eureka-server
+      - db
+      - pgadmin
+      - rabbitmq
+
+  notification:
+    image: alhoussam/notification:0.0.1-SNAPSHOT
+    container_name: notification
+    ports:
+      - 8086:8086
+    networks:
+      - spring
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - zipkin
+      - eureka-server
+      - db
+      - pgadmin
+      - rabbitmq
+
+
+networks:
+  postgres:
+    driver: bridge
+  spring:
+    driver: bridge
