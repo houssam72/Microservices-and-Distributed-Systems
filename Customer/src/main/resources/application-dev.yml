@@ -6,7 +6,7 @@ spring:
     name: Customer
   datasource:
     username: houssam
-    url: jdbc:postgresql://localhost:1234/customer
+    url: jdbc:postgresql://db:5432/customer
     password: houssam
   jpa:
     properties:
@@ -17,7 +17,7 @@ spring:
       ddl-auto: update
     show-sql: 'true'
   rabbitmq:
-    addresses: localhost:5672
+    addresses: rabbitmq:5672
 
 eureka:
   instance:
@@ -25,11 +25,12 @@ eureka:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://eureka-server:8761/eureka
       fetch-registry: true
       register-with-eureka: true
 
 management:
+
   tracing:
     sampling:
       probability: 1.0
