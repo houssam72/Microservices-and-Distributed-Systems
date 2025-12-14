@@ -1,12 +1,12 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   application:
-    name: fraud
+    name: Customer
   datasource:
     username: houssam
-    url: jdbc:postgresql://db:5432/fraud
+    url: jdbc:postgresql://db:5432/customer
     password: houssam
   jpa:
     properties:
@@ -16,12 +16,14 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: 'true'
+  rabbitmq:
+    addresses: rabbitmq:5672
 
 eureka:
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka
-      fetch-registry: false
+      fetch-registry: true
       register-with-eureka: true
     enabled: false
 

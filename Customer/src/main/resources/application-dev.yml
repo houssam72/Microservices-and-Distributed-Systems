@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: Customer
+    name: customer
   datasource:
     username: houssam
     url: jdbc:postgresql://db:5432/customer
@@ -20,17 +20,17 @@ spring:
     addresses: rabbitmq:5672
 
 eureka:
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka
       fetch-registry: true
       register-with-eureka: true
+    enabled: false
 
 management:
-
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
   tracing:
     sampling:
       probability: 1.0
