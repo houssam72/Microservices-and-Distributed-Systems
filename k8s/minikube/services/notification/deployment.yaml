@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification
+  labels:
+    app: notification
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification
+  template:
+    metadata:
+      name: notification
+      labels:
+        app: notification
+    spec:
+      containers:
+        - name: notification
+          image: alhoussam/notification:0.0.1-SNAPSHOT@sha256:26e447e774fa12e56cf494cab11582da261cd9e98a70d73a27ca738d968c161d
+          ports:
+            - containerPort: 8086
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+          imagePullPolicy: Always
+      restartPolicy: Always
+      
