@@ -5,6 +5,8 @@ package com.nitifications;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 //import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(
@@ -14,6 +16,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
         }
 )
 @EnableDiscoveryClient
+@PropertySources({
+        @PropertySource("classpath:clients-${spring.profiles.active}.properties")
+}
+)
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class,args);

@@ -53,7 +53,7 @@ services:
       - eureka-server
 
   eureka-server:
-    image: alhoussam/eureka-service-discovery:0.0.1-SNAPSHOT@sha256:e8e1b05fc16d7da504cd06e6420ed1faec3086b721574356edc6816ca8dd8d47
+    image: alhoussam/eureka-service-discovery:0.0.1-SNAPSHOT@sha256:7edefa2d5c831b861bd5c5e3e2ccc03d0ead860147850317492882ffde56e3af
     container_name: eureka-server
     ports:
       - 8761:8761
@@ -65,7 +65,7 @@ services:
       - zipkin
 
   fraud:
-    image: alhoussam/fraud:0.0.1-SNAPSHOT@sha256:be995446f86a422403d75de6c96232181b614c2180e6be29ea377eab99201231
+    image: alhoussam/fraud:0.0.1-SNAPSHOT@sha256:2ee1f1b5fe546cfb45c5966e113b42cf22800a6daa3473aff7ad1e4871d38822
     container_name: fraud
     ports:
       - 8081:8081
@@ -75,12 +75,11 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
     depends_on:
       - zipkin
-      - eureka-server
       - db
       - pgadmin
 
   customer:
-    image: alhoussam/customer:0.0.1-SNAPSHOT
+    image: alhoussam/customer:0.0.1-SNAPSHOT@sha256:7d6e05fe7d2da0a0e601cfca36af6103464cc29578eabdf2ab160305a20ac910
     container_name: customer
     ports:
       - 8080:8080
@@ -90,14 +89,12 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
     depends_on:
       - zipkin
-      - eureka-server
       - db
       - pgadmin
       - rabbitmq
 
   notification:
-    image: alhoussam/notification:0.0.1-SNAPSHOT
-    container_name: notification
+    image: alhoussam/notification:0.0.1-SNAPSHOT@sha256:26e447e774fa12e56cf494cab11582da261cd9e98a70d73a27ca738d968c161d
     ports:
       - 8086:8086
     networks:
@@ -106,7 +103,6 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
     depends_on:
       - zipkin
-      - eureka-server
       - db
       - pgadmin
       - rabbitmq
