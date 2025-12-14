@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fraud
+  labels:
+    app: fraud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fraud
+  template:
+    metadata:
+      name: fraud
+      labels:
+        app: fraud
+    spec:
+      containers:
+        - name: fraud
+          image: alhoussam/fraud:0.0.1-SNAPSHOT@sha256:2ee1f1b5fe546cfb45c5966e113b42cf22800a6daa3473aff7ad1e4871d38822
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+          imagePullPolicy: Always
+      restartPolicy: Always
+      
