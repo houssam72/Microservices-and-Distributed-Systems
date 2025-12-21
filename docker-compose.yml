@@ -39,6 +39,22 @@ services:
     networks:
       - spring
 
+  broker:
+    image: apache/kafka:latest
+    ports:
+      - 9092:9092
+      - 9093:9093
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+    networks:
+      - spring
+
   api-gateway:
     image: alhoussam/apigateway:0.0.1-SNAPSHOT@sha256:fc04ff2b7b44aa4a0e9a3aa7e13aacffc368441c84d50307b25ddeac2a10fc9f
     container_name: api-gateway

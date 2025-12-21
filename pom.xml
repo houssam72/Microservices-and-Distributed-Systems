@@ -22,6 +22,7 @@
         <module>notification</module>
         <module>ApiGateway</module>
         <module>rabbitmq</module>
+        <module>Kafkaconsumer</module>
     </modules>
     <properties>
         <java.version>17</java.version>
